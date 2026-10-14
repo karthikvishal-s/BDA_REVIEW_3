@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight Delay Review 3</title>
+<style>
+  :root { --surface:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --line:#e4e3df; --accent:#2a78d6; --warn:#e34948; }
+  @media (prefers-color-scheme: dark) { :root { --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --line:#3a3a37; --accent:#3987e5; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--surface); color:var(--ink); font:15px/1.5 system-ui, -apple-system, sans-serif; }
+  main { max-width:1200px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { font-size:24px; margin:0 0 4px; } h2 { font-size:17px; margin:32px 0 12px; }
+  .sub { color:var(--ink2); margin:0 0 8px; }
+  .banner { border:1px solid var(--warn); color:var(--warn); padding:8px 12px; border-radius:6px; font-weight:600; display:none; }
+  table { border-collapse:collapse; width:100%; font-variant-numeric:tabular-nums; font-size:14px; }
+  th, td { text-align:left; padding:6px 10px; border-bottom:1px solid var(--line); }
+  th { color:var(--ink2); font-weight:600; }
+  td.num, th.num { text-align:right; }
+  .scroll { overflow-x:auto; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(min(100%, 520px), 1fr)); gap:16px; }
+  figure { margin:0; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fcfcfb; }
+  figure img { width:100%; display:block; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Flight Delay &amp; Route Optimisation — Review 3</h1>
+  <p class="sub" id="meta">Loading outputs…</p>
+  <p class="banner" id="banner"></p>
+
+  <h2>Model 1 — arrival delay (minutes), test months</h2>
+  <div class="scroll"><table id="reg"></table></div>
+
+  <h2>Model 2 — dominant delay cause, test months</h2>
+  <div class="scroll"><table id="cause"></table></div>
+
+  <h2>Prediction demo (pre-departure models chained)</h2>
+  <div class="scroll"><table id="pred"></table></div>
+
+  <h2>Charts</h2>
+  <div class="grid" id="plots"></div>
+</main>
+<script>
+const fmt = (v, d = 2) => v == null ? "–" : Number(v).toFixed(d);
+const NAME = { pre: "Pre-departure", atdep: "At-departure" };
+
+function table(el, head, rows) {
+  el.innerHTML = "<tr>" + head.map(h => `<th class="${h.num ? "num" : ""}">${h.t}</th>`).join("") + "</tr>" +
+    rows.map(r => "<tr>" + r.map((c, i) => `<td class="${head[i].num ? "num" : ""}">${c}</td>`).join("") + "</tr>").join("");
+}
+
+async function get(url) { const r = await fetch(url); return r.ok ? r.json() : null; }
+
+(async () => {
+  const m = await get("/api/metrics");
+  if (m) {
+    const meta = m._meta;
+    document.getElementById("meta").textContent =
+      `input ${meta.input_path} · mode ${meta.mode} · train months ${m.split.train_months.join(",")} · test months ${m.split.test_months.join(",")} · generated ${meta.generated_at}`;
+    if (meta.mode !== "full") {
+      const b = document.getElementById("banner");
+      b.style.display = "block";
+      b.textContent = meta.mode === "synthetic" ? "SYNTHETIC DATA — pipeline check only, not real results"
+                                                 : "SAMPLE (100k rows) — not full-dataset results";
+    }
+    if (m.regression) {
+      const r = m.regression, rows = [];
+      for (const [k, b] of Object.entries(r.baselines)) rows.push([`Baseline (${k.replace("_", " ")})`, fmt(b.mae), fmt(b.rmse), fmt(b.median_ae), fmt(b.r2, 3)]);
+      for (const fs of ["pre", "atdep"]) for (const [a, x] of Object.entries(r.models[fs] || {}))
+        rows.push([`${NAME[fs]} · ${a.toUpperCase()}`, fmt(x.mae), fmt(x.rmse), fmt(x.median_ae), fmt(x.r2, 3)]);
+      table(document.getElementById("reg"), [{t:"Model"},{t:"MAE",num:1},{t:"RMSE",num:1},{t:"Median AE",num:1},{t:"R²",num:1}], rows);
+    }
+    if (m.cause) {
+      const c = m.cause, b = c.baselines.majority_class, rows = [[`Majority baseline (${b.predicts})`, fmt(b.accuracy, 3), fmt(b.macro_f1, 3), fmt(b.weighted_f1, 3)]];
+      for (const fs of ["pre", "atdep"]) for (const [a, x] of Object.entries(c.models[fs] || {}))
+        rows.push([`${NAME[fs]} · ${a.toUpperCase()}`, fmt(x.accuracy, 3), fmt(x.macro_f1, 3), fmt(x.weighted_f1, 3)]);
+      table(document.getElementById("cause"), [{t:"Model"},{t:"Accuracy",num:1},{t:"Macro-F1",num:1},{t:"Weighted-F1",num:1}], rows);
+    }
+  } else {
+    document.getElementById("meta").textContent = "outputs/ml/metrics.json not found — run the pipeline first.";
+  }
+  const p = await get("/api/predictions");
+  if (p) table(document.getElementById("pred"),
+    [{t:"Date"},{t:"Flight"},{t:"Route"},{t:"Actual min",num:1},{t:"Predicted min",num:1},{t:"Flagged late"},{t:"Actual cause"},{t:"Likely cause if late"},{t:"p",num:1}],
+    p.flights.map(f => [f.FL_DATE, f.OP_UNIQUE_CARRIER + " " + f.OP_CARRIER_FL_NUM, f.ROUTE, fmt(f.ARR_DELAY, 0), fmt(f.PRED_MINUTES, 1),
+                        f.FLAGGED_LATE ? "yes" : "–", f.DOMINANT_CAUSE || "–", f.PRED_CAUSE, fmt(f.PRED_CAUSE_PROB, 2)]));
+  const plots = await get("/api/plots") || [];
+  document.getElementById("plots").innerHTML = plots.map(f => `<figure><img src="/plots/${f}" alt="${f}" loading="lazy"></figure>`).join("");
+})();
+</script>
+</body>
+</html>

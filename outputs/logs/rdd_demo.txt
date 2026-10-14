@@ -1,0 +1,156 @@
+RddDemo  input=/work/data/raw/flight_data_cleaned_1year.csv  mode=full  spark=3.5.3  master=local[*]
+Application id: local-1792002664734   Spark UI: http://localhost:4040 (published from the container)
+
+==============================================================================
+1. RDD CREATION — sc.textFile on the raw CSV, header filtered out
+==============================================================================
+sc.textFile(...) -> RDD[String]; data lines (header removed): 7,001,619
+Columns resolved from the header: 38
+
+==============================================================================
+2. TRANSFORMATION map — parse each CSV line into a typed Flight record
+==============================================================================
+lines.map(l => Flight.parse(l, idx))  — narrow dependency, no shuffle
+take(5) on the parsed RDD:
+  2025-01-01 AA  SFO_JFK   depHour=10 arrDelay=-40.0 cancelled=false diverted=false causes=[0.0,0.0,0.0,0.0,0.0]
+  2025-01-01 AA  JFK_SFO   depHour= 6 arrDelay=-15.0 cancelled=false diverted=false causes=[0.0,0.0,0.0,0.0,0.0]
+  2025-01-01 AA  SAT_CLT   depHour= 8 arrDelay=-24.0 cancelled=false diverted=false causes=[0.0,0.0,0.0,0.0,0.0]
+  2025-01-01 AA  JFK_LAX   depHour=21 arrDelay=-2.0 cancelled=false diverted=false causes=[0.0,0.0,0.0,0.0,0.0]
+  2025-01-01 AA  BOS_LAX   depHour= 8 arrDelay=-29.0 cancelled=false diverted=false causes=[0.0,0.0,0.0,0.0,0.0]
+
+==============================================================================
+3. TRANSFORMATION filter — drop malformed, cancelled and diverted flights
+==============================================================================
+parsed                         : 7,001,619
+filter(_.ok)       well-formed : 7,001,619   (removed 0 malformed lines)
+filter(_.operated) operated    : 6,879,485   (removed 122,134 cancelled or diverted)
+Cancelled and diverted flights have no arrival delay, so they cannot contribute delay minutes.
+
+==============================================================================
+4. TRANSFORMATION flatMap — one (cause, minutes) token per non-zero delay cause
+==============================================================================
+A flight delayed by both weather and the carrier emits two tokens.
+flights: 6,879,485  ->  cause tokens: 2,478,024
+  cause                       flights        minutes
+  LATE_AIRCRAFT_DELAY         774,405     43,862,971
+  CARRIER_DELAY               805,262     36,320,477
+  NAS_DELAY                   793,154     24,489,666
+  WEATHER_DELAY               100,103      7,108,714
+  SECURITY_DELAY                5,100        152,802
+
+==============================================================================
+5. TRANSFORMATION reduceByKey — (sum of arrival delay, count) per ROUTE
+==============================================================================
+map to (route, (delay, 1)) then reduceByKey — wide dependency: records with the same
+route must meet on one partition, so Spark shuffles and starts a new stage here.
+distinct routes: 6,927
+
+==============================================================================
+6. TRANSFORMATION mapValues — (sum, count) -> (average delay, count)
+==============================================================================
+Top 10 routes by average arrival delay (routes with >= 300 flights):
+  SNA_PVU    avg=  61.48 min   flights=382
+  DFW_BFL    avg=  52.21 min   flights=339
+  DFW_SYR    avg=  46.08 min   flights=318
+  MRY_DFW    avg=  45.36 min   flights=322
+  PNS_DCA    avg=  41.02 min   flights=881
+  DFW_MDT    avg=  39.62 min   flights=358
+  ASE_ATL    avg=  38.96 min   flights=426
+  RIC_EWR    avg=  38.00 min   flights=336
+  DEN_HOB    avg=  37.84 min   flights=353
+  JST_ORD    avg=  37.48 min   flights=349
+
+==============================================================================
+7. ACTIONS — count, take, reduce
+==============================================================================
+count : operated flights = 6,879,485
+take  : first 3 routes of routeAvg = PDX_HNL, IAH_BUF, DTW_ATW
+reduce: total positive arrival-delay minutes = 118,781,934 (226.0 aircraft-years)
+
+==============================================================================
+8. KEY-VALUE OPERATIONS — carrier pair RDDs, aggregateByKey, join, dominant cause
+==============================================================================
+  carrier     flights  avg delay   late %  cancel %
+  OH          236,682      17.32    27.53      4.58
+  F9          194,192      14.84    27.91      1.77
+  AA          952,841      13.69    25.71      1.82
+  G4          129,892      13.01    24.97      0.47
+  B6          226,703      10.95    26.15      1.65
+  OO          825,202       9.15    20.72      1.41
+  UA          786,377       7.31    21.47      0.82
+  HA           79,335       6.78    17.28      0.82
+  NK          191,191       6.60    21.41      1.50
+  YX          334,043       6.39    21.51      3.26
+  MQ          291,835       6.24    21.04      2.24
+  WN        1,376,837       6.05    21.40      0.85
+  DL        1,012,427       5.69    19.79      1.08
+  AS          241,927       4.80    23.10      1.21
+Dominant delay cause per late flight (map + reduceByKey) — the label of ML Model 2:
+  LATE_AIRCRAFT_DELAY       589,303
+  CARRIER_DELAY             451,323
+  NAS_DELAY                 418,538
+  WEATHER_DELAY              62,523
+  TIE_OR_ZERO                10,157
+  SECURITY_DELAY              2,794
+
+==============================================================================
+9. PARTITIONS
+==============================================================================
+raw (textFile)              : 45 partitions  (one per input split: 1442 MB file / 32 MB splits)
+operated (narrow ops only)  : 45 partitions  (narrow ops keep the parent's partitioning)
+routeSums (reduceByKey)     : 45 partitions  (no numPartitions given and spark.default.parallelism unset -> keeps the parent's count)
+operated.repartition(16)    : 16 partitions  (full shuffle)
+...coalesce(4)              : 4 partitions  (merges partitions, no shuffle)
+records per partition after repartition(16): 429967, 429967, 429967, 429965, 429968, 429968, 429969, 429972, 429970, 429967, 429967, 429967, 429970, 429969, 429966, 429966
+routeSums.partitioner       : HashPartitioner
+
+==============================================================================
+10. LINEAGE and DAG — toDebugString of routeAvg
+==============================================================================
+(45) MapPartitionsRDD[12] at mapValues at RddDemo.scala:94 []
+ |   ShuffledRDD[11] at reduceByKey at RddDemo.scala:88 []
+ +-(45) MapPartitionsRDD[10] at map at RddDemo.scala:87 []
+    |   MapPartitionsRDD[9] at filter at RddDemo.scala:87 []
+    |   MapPartitionsRDD[5] at filter at RddDemo.scala:61 []
+    |   MapPartitionsRDD[4] at filter at RddDemo.scala:60 []
+    |   MapPartitionsRDD[3] at map at RddDemo.scala:49 []
+    |   MapPartitionsRDD[2] at filter at RddDemo.scala:42 []
+    |   /work/data/raw/flight_data_cleaned_1year.csv MapPartitionsRDD[1] at textFile at RddDemo.scala:39 []
+    |   /work/data/raw/flight_data_cleaned_1year.csv HadoopRDD[0] at textFile at RddDemo.scala:39 []
+
+How to read it: each indentation level change marked "+-" is a shuffle boundary, i.e. a new stage.
+  * textFile -> filter(header) -> map(parse) -> filter(ok) -> filter(operated) -> filter -> map
+    are NARROW dependencies: each output partition depends on exactly one input partition, so Spark
+    pipelines them inside one task with no data movement (Stage 0 in the Spark UI).
+  * reduceByKey is a WIDE dependency (ShuffledRDD): records with the same route can sit on any input
+    partition, so map-side partial sums are written to shuffle files and fetched by key (Stage 1).
+  * mapValues after the shuffle is narrow again and keeps the HashPartitioner.
+The stage boundaries in the Spark UI DAG view correspond exactly to the wide dependencies above.
+
+FAULT TOLERANCE: an RDD stores no data by default, only this lineage. If an executor holding a
+partition of routeAvg is lost, Spark re-runs only the tasks that produced the missing partitions:
+it re-reads the corresponding input split, re-applies the narrow chain, and re-fetches the shuffle
+output for that key range (re-running the map stage only for shuffle files that were also lost).
+No replication of intermediate data is needed — recomputation from lineage is the recovery plan.
+
+
+==============================================================================
+11. CACHE / PERSIST — the same action twice uncached, then twice cached
+==============================================================================
+mode=full input=/work/data/raw/flight_data_cleaned_1year.csv rows=6,879,485 application=local-1792002664734
+RDD: operated (textFile -> parse -> filter -> filter), action: count()
+
+run 1  uncached               :    7.781 s   recomputes the full lineage from the CSV
+run 2  uncached               :    7.141 s   recomputes again (OS page cache may now hold the file)
+       operated.persist(MEMORY_ONLY)
+run 3  cached, first action   :   19.996 s   computes AND stores the partitions
+run 4  cached, served         :    5.169 s   reads partitions from executor memory
+
+partitions cached: 93%   memory used: 2814.3 MB   storage level: Memory Deserialized 1x Replicated
+speed-up run 2 -> run 4: 1.4x
+
+These are the timings actually observed on this run. Run 2 can already be faster than run 1
+because the operating system caches the CSV file after the first read; that removes disk time
+but not CSV parsing, which is what persist() removes. If fewer than 100% of partitions were
+cached, executor memory was insufficient and the uncached partitions were recomputed.
+

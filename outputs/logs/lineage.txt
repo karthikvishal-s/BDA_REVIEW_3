@@ -1,0 +1,28 @@
+mode=full input=/work/data/raw/flight_data_cleaned_1year.csv application=local-1792002664734
+
+routeAvg.toDebugString
+(45) MapPartitionsRDD[12] at mapValues at RddDemo.scala:94 []
+ |   ShuffledRDD[11] at reduceByKey at RddDemo.scala:88 []
+ +-(45) MapPartitionsRDD[10] at map at RddDemo.scala:87 []
+    |   MapPartitionsRDD[9] at filter at RddDemo.scala:87 []
+    |   MapPartitionsRDD[5] at filter at RddDemo.scala:61 []
+    |   MapPartitionsRDD[4] at filter at RddDemo.scala:60 []
+    |   MapPartitionsRDD[3] at map at RddDemo.scala:49 []
+    |   MapPartitionsRDD[2] at filter at RddDemo.scala:42 []
+    |   /work/data/raw/flight_data_cleaned_1year.csv MapPartitionsRDD[1] at textFile at RddDemo.scala:39 []
+    |   /work/data/raw/flight_data_cleaned_1year.csv HadoopRDD[0] at textFile at RddDemo.scala:39 []
+
+How to read it: each indentation level change marked "+-" is a shuffle boundary, i.e. a new stage.
+  * textFile -> filter(header) -> map(parse) -> filter(ok) -> filter(operated) -> filter -> map
+    are NARROW dependencies: each output partition depends on exactly one input partition, so Spark
+    pipelines them inside one task with no data movement (Stage 0 in the Spark UI).
+  * reduceByKey is a WIDE dependency (ShuffledRDD): records with the same route can sit on any input
+    partition, so map-side partial sums are written to shuffle files and fetched by key (Stage 1).
+  * mapValues after the shuffle is narrow again and keeps the HashPartitioner.
+The stage boundaries in the Spark UI DAG view correspond exactly to the wide dependencies above.
+
+FAULT TOLERANCE: an RDD stores no data by default, only this lineage. If an executor holding a
+partition of routeAvg is lost, Spark re-runs only the tasks that produced the missing partitions:
+it re-reads the corresponding input split, re-applies the narrow chain, and re-fetches the shuffle
+output for that key range (re-running the map stage only for shuffle files that were also lost).
+No replication of intermediate data is needed — recomputation from lineage is the recovery plan.

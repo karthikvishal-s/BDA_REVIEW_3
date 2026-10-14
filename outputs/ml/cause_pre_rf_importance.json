@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 386770,
+    "generated_at": "2026-10-14T18:30:29+00:00",
+    "producer": "evaluate.py"
+  },
+  "model": "cause_pre_rf",
+  "top": [
+    {
+      "feature": "HIST_ROUTE_SHARE_SECURITY",
+      "importance": 0.217434497462642
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_WEATHER",
+      "importance": 0.12407207451927109
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_NAS",
+      "importance": 0.06958375090783
+    },
+    {
+      "feature": "DEP_HOUR",
+      "importance": 0.056167292037161
+    },
+    {
+      "feature": "ORIGIN",
+      "importance": 0.05122021833958943
+    },
+    {
+      "feature": "DEST",
+      "importance": 0.04192166011986304
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_LATE_AIRCRAFT",
+      "importance": 0.040431337952639625
+    },
+    {
+      "feature": "OP_UNIQUE_CARRIER",
+      "importance": 0.039253524887863774
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+      "importance": 0.03592955819362346
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_CARRIER",
+      "importance": 0.03497510562790605
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_WEATHER",
+      "importance": 0.031274511228603176
+    },
+    {
+      "feature": "DEP_TIME_CATEGORY",
+      "importance": 0.030763038420597605
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_NAS",
+      "importance": 0.028614784727428372
+    },
+    {
+      "feature": "MONTH",
+      "importance": 0.02844907973113312
+    },
+    {
+      "feature": "ARR_HOUR",
+      "importance": 0.02651361620850975
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_SECURITY",
+      "importance": 0.022558790312221202
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_CARRIER",
+      "importance": 0.020905081437346974
+    },
+    {
+      "feature": "HIST_ORIGIN_SHARE_WEATHER",
+      "importance": 0.019313611754091606
+    },
+    {
+      "feature": "ORIGIN_HOUR_DEPARTURES",
+      "importance": 0.018254669815377166
+    },
+    {
+      "feature": "HIST_ORIGIN_SHARE_SECURITY",
+      "importance": 0.016267062241521885
+    }
+  ]
+}

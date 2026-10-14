@@ -1,0 +1,713 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 7001619,
+    "generated_at": "2026-10-14T18:30:39+00:00",
+    "producer": "evaluate.py"
+  },
+  "mode": "full",
+  "split": {
+    "train_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "test_months": [
+      10,
+      11,
+      12
+    ],
+    "train_rows": 5150694,
+    "test_rows": 1728790
+  },
+  "regression": {
+    "population": "operated flights (not cancelled / diverted) with a recorded ARR_DELAY",
+    "test_rows": 1728790,
+    "baselines": {
+      "train_mean": {
+        "value": 8.571411541823297,
+        "n": 1728790,
+        "rmse": 58.637844676932254,
+        "mae": 28.73994066159853,
+        "median_ae": 20.571411541823295,
+        "r2": -2.0616980374921212e-05,
+        "by_band": [
+          {
+            "band": "early_or_on_time (<15)",
+            "n": 1339256,
+            "mae": 18.906647601301863,
+            "mean_error": 18.536237534729985
+          },
+          {
+            "band": "15-60",
+            "n": 251122,
+            "mae": 22.366905292228488,
+            "mean_error": -22.366905292228488
+          },
+          {
+            "band": "60-180",
+            "n": 111203,
+            "mae": 91.08838180907667,
+            "mean_error": -91.08838180907667
+          },
+          {
+            "band": "180+",
+            "n": 27209,
+            "mae": 316.7465714785144,
+            "mean_error": -316.7465714785144
+          }
+        ]
+      },
+      "train_median": {
+        "value": -6.0,
+        "n": 1728790,
+        "rmse": 60.35696852659455,
+        "mae": 25.164611086366765,
+        "median_ae": 12.0,
+        "r2": -0.05951666968358893,
+        "by_band": [
+          {
+            "band": "early_or_on_time (<15)",
+            "n": 1339256,
+            "mae": 10.053184006642494,
+            "mean_error": 3.9648259929393634
+          },
+          {
+            "band": "15-60",
+            "n": 251122,
+            "mae": 36.93831683404879,
+            "mean_error": -36.93831683404879
+          },
+          {
+            "band": "60-180",
+            "n": 111203,
+            "mae": 105.65979335089881,
+            "mean_error": -105.65979335089881
+          },
+          {
+            "band": "180+",
+            "n": 27209,
+            "mae": 331.31798302032416,
+            "mean_error": -331.31798302032416
+          }
+        ]
+      }
+    },
+    "models": {
+      "pre": {
+        "lr": {
+          "n": 1728790,
+          "rmse": 58.16247368092293,
+          "mae": 29.49845869010566,
+          "median_ae": 20.956619234921096,
+          "r2": 0.016127789143271953,
+          "by_band": [
+            {
+              "band": "early_or_on_time (<15)",
+              "n": 1339256,
+              "mae": 21.537682007674345,
+              "mean_error": 20.676144526969598
+            },
+            {
+              "band": "15-60",
+              "n": 251122,
+              "mae": 18.152704952021995,
+              "mean_error": -15.874236120412208
+            },
+            {
+              "band": "60-180",
+              "n": 111203,
+              "mae": 82.69469630511364,
+              "mean_error": -82.6931434425994
+            },
+            {
+              "band": "180+",
+              "n": 27209,
+              "mae": 308.63790134950375,
+              "mean_error": -308.63790134950375
+            }
+          ]
+        },
+        "rf": {
+          "n": 1728790,
+          "rmse": 58.166209561262015,
+          "mae": 26.916877231129018,
+          "median_ae": 16.815184293453427,
+          "r2": 0.016001393319222235,
+          "by_band": [
+            {
+              "band": "early_or_on_time (<15)",
+              "n": 1339256,
+              "mae": 16.497840011394544,
+              "mean_error": 14.791859017796712
+            },
+            {
+              "band": "15-60",
+              "n": 251122,
+              "mae": 23.348484801941513,
+              "mean_error": -22.583367206971293
+            },
+            {
+              "band": "60-180",
+              "n": 111203,
+              "mae": 89.81171648597771,
+              "mean_error": -89.75516497434083
+            },
+            {
+              "band": "180+",
+              "n": 27209,
+              "mae": 315.63624011466203,
+              "mean_error": -315.6291500504209
+            }
+          ]
+        }
+      },
+      "atdep": {
+        "lr": {
+          "n": 1728790,
+          "rmse": 14.031036604054803,
+          "mae": 9.525463341735334,
+          "median_ae": 7.264268701191886,
+          "r2": 0.9427424881778006,
+          "by_band": [
+            {
+              "band": "early_or_on_time (<15)",
+              "n": 1339256,
+              "mae": 8.36330907318881,
+              "mean_error": 5.590914886552552
+            },
+            {
+              "band": "15-60",
+              "n": 251122,
+              "mae": 9.145786935499798,
+              "mean_error": -3.8484621586992613
+            },
+            {
+              "band": "60-180",
+              "n": 111203,
+              "mae": 14.899398144066309,
+              "mean_error": -13.409896429207908
+            },
+            {
+              "band": "180+",
+              "n": 27209,
+              "mae": 48.26887558546498,
+              "mean_error": -48.22776253579342
+            }
+          ]
+        },
+        "rf": {
+          "n": 1728790,
+          "rmse": 21.90354400641236,
+          "mae": 9.228788317150398,
+          "median_ae": 6.558461955106093,
+          "r2": 0.8604654566352739,
+          "by_band": [
+            {
+              "band": "early_or_on_time (<15)",
+              "n": 1339256,
+              "mae": 7.527087271549148,
+              "mean_error": 2.898440407823735
+            },
+            {
+              "band": "15-60",
+              "n": 251122,
+              "mae": 10.997386457481,
+              "mean_error": -6.232224555392043
+            },
+            {
+              "band": "60-180",
+              "n": 111203,
+              "mae": 14.415391010162216,
+              "mean_error": -4.559919062447316
+            },
+            {
+              "band": "180+",
+              "n": 27209,
+              "mae": 55.46766714624143,
+              "mean_error": -38.26542607034404
+            }
+          ]
+        }
+      }
+    }
+  },
+  "cause": {
+    "population": "operated flights with ARR_DELAY >= 15, all cause columns reported, no exact tie",
+    "class_distribution_train": {
+      "LATE_AIRCRAFT_DELAY": 436360,
+      "WEATHER_DELAY": 51254,
+      "SECURITY_DELAY": 2056,
+      "NAS_DELAY": 310453,
+      "CARRIER_DELAY": 337588
+    },
+    "class_distribution_test": {
+      "LATE_AIRCRAFT_DELAY": 152943,
+      "WEATHER_DELAY": 11269,
+      "SECURITY_DELAY": 738,
+      "NAS_DELAY": 108085,
+      "CARRIER_DELAY": 113735
+    },
+    "baselines": {
+      "majority_class": {
+        "predicts": "LATE_AIRCRAFT_DELAY",
+        "n": 386770,
+        "accuracy": 0.39543656436641933,
+        "macro_f1": 0.11335135525733123,
+        "weighted_f1": 0.2241163524461826,
+        "per_class": {
+          "CARRIER_DELAY": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 113735,
+            "predicted": 0
+          },
+          "WEATHER_DELAY": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 11269,
+            "predicted": 0
+          },
+          "NAS_DELAY": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 108085,
+            "predicted": 0
+          },
+          "SECURITY_DELAY": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "support": 738,
+            "predicted": 0
+          },
+          "LATE_AIRCRAFT_DELAY": {
+            "precision": 0.39543656436641933,
+            "recall": 1.0,
+            "f1": 0.5667567762866561,
+            "support": 152943,
+            "predicted": 386770
+          }
+        },
+        "confusion_matrix": {
+          "labels": [
+            "CARRIER_DELAY",
+            "WEATHER_DELAY",
+            "NAS_DELAY",
+            "SECURITY_DELAY",
+            "LATE_AIRCRAFT_DELAY"
+          ],
+          "rows_actual_cols_predicted": [
+            [
+              0,
+              0,
+              0,
+              0,
+              113735
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              11269
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              108085
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              738
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              152943
+            ]
+          ]
+        }
+      }
+    },
+    "models": {
+      "pre": {
+        "lr": {
+          "n": 386770,
+          "accuracy": 0.39413604984874734,
+          "macro_f1": 0.2826745309980879,
+          "weighted_f1": 0.4281910684326489,
+          "per_class": {
+            "CARRIER_DELAY": {
+              "precision": 0.42168865692754187,
+              "recall": 0.30404888556732756,
+              "f1": 0.35333425291584286,
+              "support": 113735,
+              "predicted": 82006
+            },
+            "WEATHER_DELAY": {
+              "precision": 0.06495050022203067,
+              "recall": 0.4412991392315201,
+              "f1": 0.11323504297831162,
+              "support": 11269,
+              "predicted": 76566
+            },
+            "NAS_DELAY": {
+              "precision": 0.45988505105741867,
+              "recall": 0.38125549336170605,
+              "f1": 0.41689513885376095,
+              "support": 108085,
+              "predicted": 89605
+            },
+            "SECURITY_DELAY": {
+              "precision": 0.006752148410858,
+              "recall": 0.13414634146341464,
+              "f1": 0.012857142857142857,
+              "support": 738,
+              "predicted": 14662
+            },
+            "LATE_AIRCRAFT_DELAY": {
+              "precision": 0.5775713905318282,
+              "recall": 0.46801095833088147,
+              "f1": 0.517051077385381,
+              "support": 152943,
+              "predicted": 123931
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "CARRIER_DELAY",
+              "WEATHER_DELAY",
+              "NAS_DELAY",
+              "SECURITY_DELAY",
+              "LATE_AIRCRAFT_DELAY"
+            ],
+            "rows_actual_cols_predicted": [
+              [
+                34581,
+                25653,
+                20219,
+                4763,
+                28519
+              ],
+              [
+                2773,
+                4973,
+                1515,
+                352,
+                1656
+              ],
+              [
+                22339,
+                19079,
+                41208,
+                3513,
+                21946
+              ],
+              [
+                146,
+                134,
+                128,
+                99,
+                231
+              ],
+              [
+                22167,
+                26727,
+                26535,
+                5935,
+                71579
+              ]
+            ]
+          }
+        },
+        "rf": {
+          "n": 386770,
+          "accuracy": 0.4092949298032422,
+          "macro_f1": 0.2905849453519037,
+          "weighted_f1": 0.43630409768120904,
+          "per_class": {
+            "CARRIER_DELAY": {
+              "precision": 0.45686211622007755,
+              "recall": 0.2755352354156592,
+              "f1": 0.34375222811511064,
+              "support": 113735,
+              "predicted": 68594
+            },
+            "WEATHER_DELAY": {
+              "precision": 0.07615042458552365,
+              "recall": 0.41778329931670954,
+              "f1": 0.12882042301693708,
+              "support": 11269,
+              "predicted": 61825
+            },
+            "NAS_DELAY": {
+              "precision": 0.4397406525341616,
+              "recall": 0.44928528472961093,
+              "f1": 0.4444617327792931,
+              "support": 108085,
+              "predicted": 110431
+            },
+            "SECURITY_DELAY": {
+              "precision": 0.006152652292001552,
+              "recall": 0.15040650406504066,
+              "f1": 0.011821715746312371,
+              "support": 738,
+              "predicted": 18041
+            },
+            "LATE_AIRCRAFT_DELAY": {
+              "precision": 0.5754267706191009,
+              "recall": 0.4811269557939886,
+              "f1": 0.5240686271018652,
+              "support": 152943,
+              "predicted": 127879
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "CARRIER_DELAY",
+              "WEATHER_DELAY",
+              "NAS_DELAY",
+              "SECURITY_DELAY",
+              "LATE_AIRCRAFT_DELAY"
+            ],
+            "rows_actual_cols_predicted": [
+              [
+                31338,
+                20741,
+                25145,
+                5563,
+                30948
+              ],
+              [
+                2694,
+                4708,
+                1771,
+                381,
+                1715
+              ],
+              [
+                19047,
+                14319,
+                48561,
+                4773,
+                21385
+              ],
+              [
+                117,
+                111,
+                153,
+                111,
+                246
+              ],
+              [
+                15398,
+                21946,
+                34801,
+                7213,
+                73585
+              ]
+            ]
+          }
+        }
+      },
+      "atdep": {
+        "lr": {
+          "n": 386770,
+          "accuracy": 0.49054993924037543,
+          "macro_f1": 0.34855475698819727,
+          "weighted_f1": 0.5175627315052522,
+          "per_class": {
+            "CARRIER_DELAY": {
+              "precision": 0.4931506849315068,
+              "recall": 0.295318063920517,
+              "f1": 0.369415542992895,
+              "support": 113735,
+              "predicted": 68109
+            },
+            "WEATHER_DELAY": {
+              "precision": 0.08271461546378112,
+              "recall": 0.49924571834235515,
+              "f1": 0.14191660570592537,
+              "support": 11269,
+              "predicted": 68017
+            },
+            "NAS_DELAY": {
+              "precision": 0.6230914224098905,
+              "recall": 0.7003747050932136,
+              "f1": 0.6594766003414991,
+              "support": 108085,
+              "predicted": 121491
+            },
+            "SECURITY_DELAY": {
+              "precision": 0.007586500283607487,
+              "recall": 0.14498644986449866,
+              "f1": 0.014418541975475001,
+              "support": 738,
+              "predicted": 14104
+            },
+            "LATE_AIRCRAFT_DELAY": {
+              "precision": 0.6493667915409955,
+              "recall": 0.4884760989388203,
+              "f1": 0.5575464939251917,
+              "support": 152943,
+              "predicted": 115049
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "CARRIER_DELAY",
+              "WEATHER_DELAY",
+              "NAS_DELAY",
+              "SECURITY_DELAY",
+              "LATE_AIRCRAFT_DELAY"
+            ],
+            "rows_actual_cols_predicted": [
+              [
+                33588,
+                23758,
+                22657,
+                4938,
+                28794
+              ],
+              [
+                2388,
+                5626,
+                1542,
+                318,
+                1395
+              ],
+              [
+                8890,
+                10926,
+                75700,
+                2660,
+                9909
+              ],
+              [
+                136,
+                125,
+                128,
+                107,
+                242
+              ],
+              [
+                23107,
+                27582,
+                21464,
+                6081,
+                74709
+              ]
+            ]
+          }
+        },
+        "rf": {
+          "n": 386770,
+          "accuracy": 0.5537270212270858,
+          "macro_f1": 0.39992047926017665,
+          "weighted_f1": 0.5927028005955628,
+          "per_class": {
+            "CARRIER_DELAY": {
+              "precision": 0.6059963996112855,
+              "recall": 0.3344528948872379,
+              "f1": 0.43102217488357336,
+              "support": 113735,
+              "predicted": 62771
+            },
+            "WEATHER_DELAY": {
+              "precision": 0.09217700901305,
+              "recall": 0.5835477859614873,
+              "f1": 0.15920590727514827,
+              "support": 11269,
+              "predicted": 71341
+            },
+            "NAS_DELAY": {
+              "precision": 0.8562336119764237,
+              "recall": 0.7069621131516862,
+              "f1": 0.7744708022723702,
+              "support": 108085,
+              "predicted": 89242
+            },
+            "SECURITY_DELAY": {
+              "precision": 0.008212651244436086,
+              "recall": 0.17750677506775067,
+              "f1": 0.01569896338905866,
+              "support": 738,
+              "predicted": 15951
+            },
+            "LATE_AIRCRAFT_DELAY": {
+              "precision": 0.6307055911572238,
+              "recall": 0.6081154417005028,
+              "f1": 0.6192045484807329,
+              "support": 152943,
+              "predicted": 147465
+            }
+          },
+          "confusion_matrix": {
+            "labels": [
+              "CARRIER_DELAY",
+              "WEATHER_DELAY",
+              "NAS_DELAY",
+              "SECURITY_DELAY",
+              "LATE_AIRCRAFT_DELAY"
+            ],
+            "rows_actual_cols_predicted": [
+              [
+                38039,
+                24043,
+                5849,
+                6215,
+                39589
+              ],
+              [
+                1916,
+                6576,
+                597,
+                323,
+                1857
+              ],
+              [
+                6475,
+                10863,
+                76412,
+                1636,
+                12699
+              ],
+              [
+                121,
+                125,
+                48,
+                131,
+                313
+              ],
+              [
+                16220,
+                29734,
+                6336,
+                7646,
+                93007
+              ]
+            ]
+          }
+        }
+      }
+    }
+  }
+}

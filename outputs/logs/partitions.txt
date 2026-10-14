@@ -1,0 +1,8 @@
+mode=full input=/work/data/raw/flight_data_cleaned_1year.csv
+raw (textFile)              : 45 partitions  (one per input split: 1442 MB file / 32 MB splits)
+operated (narrow ops only)  : 45 partitions  (narrow ops keep the parent's partitioning)
+routeSums (reduceByKey)     : 45 partitions  (no numPartitions given and spark.default.parallelism unset -> keeps the parent's count)
+operated.repartition(16)    : 16 partitions  (full shuffle)
+...coalesce(4)              : 4 partitions  (merges partitions, no shuffle)
+records per partition after repartition(16): 429967, 429967, 429967, 429965, 429968, 429968, 429969, 429972, 429970, 429967, 429967, 429967, 429970, 429969, 429966, 429966
+routeSums.partitioner       : HashPartitioner

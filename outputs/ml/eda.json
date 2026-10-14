@@ -1,0 +1,556 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 7001619,
+    "generated_at": "2026-10-14T18:07:38+00:00",
+    "producer": "eda.py"
+  },
+  "rows": 7001619,
+  "operated_with_arrival": 6879484,
+  "arr_delay": {
+    "quantiles": {
+      "0.01": -37.0,
+      "0.05": -27.0,
+      "0.25": -15.0,
+      "0.5": -6.0,
+      "0.75": 11.0,
+      "0.95": 91.0,
+      "0.99": 225.0,
+      "0.999": 672.0
+    },
+    "mean": 8.504504407598011,
+    "std": 59.73557564368496,
+    "min": -128.0,
+    "max": 4336.0,
+    "share_ge_15": 0.2230745794306666,
+    "share_ge_60": 0.08177270272014588,
+    "share_ge_180": 0.016193801744433158,
+    "share_early": 0.6070328821173215,
+    "histogram_10min_clipped_-60_300": [
+      {
+        "bin": -60,
+        "count": 6214
+      },
+      {
+        "bin": -50,
+        "count": 30615
+      },
+      {
+        "bin": -40,
+        "count": 175170
+      },
+      {
+        "bin": -30,
+        "count": 745468
+      },
+      {
+        "bin": -20,
+        "count": 1659172
+      },
+      {
+        "bin": -10,
+        "count": 1559434
+      },
+      {
+        "bin": 0,
+        "count": 890587
+      },
+      {
+        "bin": 10,
+        "count": 489910
+      },
+      {
+        "bin": 20,
+        "count": 301104
+      },
+      {
+        "bin": 30,
+        "count": 203321
+      },
+      {
+        "bin": 40,
+        "count": 146150
+      },
+      {
+        "bin": 50,
+        "count": 109785
+      },
+      {
+        "bin": 60,
+        "count": 86499
+      },
+      {
+        "bin": 70,
+        "count": 69447
+      },
+      {
+        "bin": 80,
+        "count": 56407
+      },
+      {
+        "bin": 90,
+        "count": 46816
+      },
+      {
+        "bin": 100,
+        "count": 39397
+      },
+      {
+        "bin": 110,
+        "count": 32716
+      },
+      {
+        "bin": 120,
+        "count": 28134
+      },
+      {
+        "bin": 130,
+        "count": 24121
+      },
+      {
+        "bin": 140,
+        "count": 20781
+      },
+      {
+        "bin": 150,
+        "count": 17817
+      },
+      {
+        "bin": 160,
+        "count": 15524
+      },
+      {
+        "bin": 170,
+        "count": 13490
+      },
+      {
+        "bin": 180,
+        "count": 11929
+      },
+      {
+        "bin": 190,
+        "count": 10155
+      },
+      {
+        "bin": 200,
+        "count": 8698
+      },
+      {
+        "bin": 210,
+        "count": 7722
+      },
+      {
+        "bin": 220,
+        "count": 6785
+      },
+      {
+        "bin": 230,
+        "count": 6007
+      },
+      {
+        "bin": 240,
+        "count": 5205
+      },
+      {
+        "bin": 250,
+        "count": 4674
+      },
+      {
+        "bin": 260,
+        "count": 4249
+      },
+      {
+        "bin": 270,
+        "count": 3623
+      },
+      {
+        "bin": 280,
+        "count": 3264
+      },
+      {
+        "bin": 290,
+        "count": 2824
+      },
+      {
+        "bin": 300,
+        "count": 36270
+      }
+    ]
+  },
+  "missing_by_column": {
+    "YEAR": 0,
+    "FL_DATE": 0,
+    "OP_UNIQUE_CARRIER": 0,
+    "OP_CARRIER_AIRLINE_ID": 0,
+    "OP_CARRIER_FL_NUM": 0,
+    "ORIGIN": 0,
+    "ORIGIN_CITY_NAME": 0,
+    "ORIGIN_STATE_ABR": 0,
+    "DEST": 0,
+    "DEST_CITY_NAME": 0,
+    "DEST_STATE_ABR": 0,
+    "CRS_DEP_TIME": 0,
+    "DEP_TIME": 98170,
+    "DEP_DELAY": 98591,
+    "DEP_DELAY_NEW": 98591,
+    "DEP_DEL15": 98591,
+    "TAXI_OUT": 102183,
+    "TAXI_IN": 104608,
+    "CRS_ARR_TIME": 0,
+    "ARR_TIME": 104608,
+    "ARR_DELAY": 122135,
+    "ARR_DELAY_NEW": 122135,
+    "ARR_DEL15": 122135,
+    "CANCELLED": 0,
+    "DIVERTED": 0,
+    "AIR_TIME": 122135,
+    "DISTANCE": 0,
+    "CARRIER_DELAY": 0,
+    "WEATHER_DELAY": 0,
+    "NAS_DELAY": 0,
+    "SECURITY_DELAY": 0,
+    "LATE_AIRCRAFT_DELAY": 0,
+    "ROUTE": 0,
+    "DAY_OF_WEEK": 0,
+    "DEP_TIME_CATEGORY": 0,
+    "DELAY_CATEGORY": 0,
+    "DISTANCE_CATEGORY": 0,
+    "DEP_HOUR": 0,
+    "ARR_HOUR": 0,
+    "MONTH": 0
+  },
+  "late_flights_cause_status": {
+    "tie": 10143,
+    "ok": 1524481,
+    "zero_causes": 14
+  },
+  "dominant_cause_share_by_month": [
+    {
+      "month": 1,
+      "CARRIER_DELAY": 0.32836923076923075,
+      "WEATHER_DELAY": 0.049056410256410256,
+      "NAS_DELAY": 0.28235897435897434,
+      "SECURITY_DELAY": 0.002471794871794872,
+      "LATE_AIRCRAFT_DELAY": 0.33774358974358976,
+      "n": 97500
+    },
+    {
+      "month": 2,
+      "CARRIER_DELAY": 0.2988885961574115,
+      "WEATHER_DELAY": 0.041411746338417106,
+      "NAS_DELAY": 0.30061571187416447,
+      "SECURITY_DELAY": 0.0017271157167530224,
+      "LATE_AIRCRAFT_DELAY": 0.3573568299132539,
+      "n": 102483
+    },
+    {
+      "month": 3,
+      "CARRIER_DELAY": 0.30084360016993383,
+      "WEATHER_DELAY": 0.035954880829554614,
+      "NAS_DELAY": 0.27845741683212094,
+      "SECURITY_DELAY": 0.0017166786602970374,
+      "LATE_AIRCRAFT_DELAY": 0.38302742350809355,
+      "n": 115339
+    },
+    {
+      "month": 4,
+      "CARRIER_DELAY": 0.2969011688185097,
+      "WEATHER_DELAY": 0.03802426251007984,
+      "NAS_DELAY": 0.28092406667316505,
+      "SECURITY_DELAY": 0.0019317849515724551,
+      "LATE_AIRCRAFT_DELAY": 0.382218717046673,
+      "n": 112849
+    },
+    {
+      "month": 5,
+      "CARRIER_DELAY": 0.27184341271200957,
+      "WEATHER_DELAY": 0.04811261492775969,
+      "NAS_DELAY": 0.3066929358688824,
+      "SECURITY_DELAY": 0.0012991833704528583,
+      "LATE_AIRCRAFT_DELAY": 0.37205185312089545,
+      "n": 140088
+    },
+    {
+      "month": 6,
+      "CARRIER_DELAY": 0.28885483305712467,
+      "WEATHER_DELAY": 0.048036542699479066,
+      "NAS_DELAY": 0.25297741029159315,
+      "SECURITY_DELAY": 0.001906730580750931,
+      "LATE_AIRCRAFT_DELAY": 0.40822448337105216,
+      "n": 168351
+    },
+    {
+      "month": 7,
+      "CARRIER_DELAY": 0.28887018246348456,
+      "WEATHER_DELAY": 0.05067798152614097,
+      "NAS_DELAY": 0.2468603540064613,
+      "SECURITY_DELAY": 0.0015811985257314465,
+      "LATE_AIRCRAFT_DELAY": 0.41201028347818175,
+      "n": 175816
+    },
+    {
+      "month": 8,
+      "CARRIER_DELAY": 0.30349144798148314,
+      "WEATHER_DELAY": 0.049170348994499055,
+      "NAS_DELAY": 0.24680614422701175,
+      "SECURITY_DELAY": 0.0018637087804731416,
+      "LATE_AIRCRAFT_DELAY": 0.3986683500165329,
+      "n": 133068
+    },
+    {
+      "month": 9,
+      "CARRIER_DELAY": 0.3128815728119544,
+      "WEATHER_DELAY": 0.03805155231681794,
+      "NAS_DELAY": 0.28735482611665963,
+      "SECURITY_DELAY": 0.0020928895973627423,
+      "LATE_AIRCRAFT_DELAY": 0.35961915915720527,
+      "n": 92217
+    },
+    {
+      "month": 10,
+      "CARRIER_DELAY": 0.295205445585351,
+      "WEATHER_DELAY": 0.021409852817563,
+      "NAS_DELAY": 0.29435663309874244,
+      "SECURITY_DELAY": 0.0016481795856476522,
+      "LATE_AIRCRAFT_DELAY": 0.3873798889126959,
+      "n": 121346
+    },
+    {
+      "month": 11,
+      "CARRIER_DELAY": 0.2832379625629315,
+      "WEATHER_DELAY": 0.027676626960684906,
+      "NAS_DELAY": 0.3085428110424363,
+      "SECURITY_DELAY": 0.0018163061974836223,
+      "LATE_AIRCRAFT_DELAY": 0.3787262932364637,
+      "n": 113417
+    },
+    {
+      "month": 12,
+      "CARRIER_DELAY": 0.3012295486392074,
+      "WEATHER_DELAY": 0.0363930608458821,
+      "NAS_DELAY": 0.24585709868624472,
+      "SECURITY_DELAY": 0.0021841099423052885,
+      "LATE_AIRCRAFT_DELAY": 0.4143361818863605,
+      "n": 152007
+    }
+  ],
+  "dominant_cause_share_by_dep_hour": [
+    {
+      "dep_hour": 0,
+      "CARRIER_DELAY": 0.36523652365236525,
+      "WEATHER_DELAY": 0.018151815181518153,
+      "NAS_DELAY": 0.18426842684268427,
+      "SECURITY_DELAY": 0.0011001100110011,
+      "LATE_AIRCRAFT_DELAY": 0.4312431243124312,
+      "n": 1818
+    },
+    {
+      "dep_hour": 1,
+      "CARRIER_DELAY": 0.3540587219343696,
+      "WEATHER_DELAY": 0.02072538860103627,
+      "NAS_DELAY": 0.18998272884283246,
+      "SECURITY_DELAY": 0.0051813471502590676,
+      "LATE_AIRCRAFT_DELAY": 0.43005181347150256,
+      "n": 579
+    },
+    {
+      "dep_hour": 2,
+      "CARRIER_DELAY": 0.3025830258302583,
+      "WEATHER_DELAY": 0.02214022140221402,
+      "NAS_DELAY": 0.22878228782287824,
+      "SECURITY_DELAY": 0.0,
+      "LATE_AIRCRAFT_DELAY": 0.44649446494464945,
+      "n": 271
+    },
+    {
+      "dep_hour": 3,
+      "CARRIER_DELAY": 0.3816793893129771,
+      "WEATHER_DELAY": 0.0,
+      "NAS_DELAY": 0.09923664122137404,
+      "SECURITY_DELAY": 0.0,
+      "LATE_AIRCRAFT_DELAY": 0.5190839694656488,
+      "n": 131
+    },
+    {
+      "dep_hour": 4,
+      "CARRIER_DELAY": 0.4,
+      "WEATHER_DELAY": 0.0,
+      "NAS_DELAY": 0.3,
+      "SECURITY_DELAY": 0.0,
+      "LATE_AIRCRAFT_DELAY": 0.3,
+      "n": 40
+    },
+    {
+      "dep_hour": 5,
+      "CARRIER_DELAY": 0.5518725284949988,
+      "WEATHER_DELAY": 0.07088857873924169,
+      "NAS_DELAY": 0.32792509886020005,
+      "SECURITY_DELAY": 0.004826703884624331,
+      "LATE_AIRCRAFT_DELAY": 0.0444870900209351,
+      "n": 17196
+    },
+    {
+      "dep_hour": 6,
+      "CARRIER_DELAY": 0.5006519179004038,
+      "WEATHER_DELAY": 0.050618270524899055,
+      "NAS_DELAY": 0.38967866756393,
+      "SECURITY_DELAY": 0.003890477792732167,
+      "LATE_AIRCRAFT_DELAY": 0.05516066621803499,
+      "n": 47552
+    },
+    {
+      "dep_hour": 7,
+      "CARRIER_DELAY": 0.4423627497247129,
+      "WEATHER_DELAY": 0.04761680037753657,
+      "NAS_DELAY": 0.4092181846783074,
+      "SECURITY_DELAY": 0.002233758061978921,
+      "LATE_AIRCRAFT_DELAY": 0.09856850715746421,
+      "n": 63570
+    },
+    {
+      "dep_hour": 8,
+      "CARRIER_DELAY": 0.4087204918508207,
+      "WEATHER_DELAY": 0.039861376950292904,
+      "NAS_DELAY": 0.3758772692999246,
+      "SECURITY_DELAY": 0.0017255379618351604,
+      "LATE_AIRCRAFT_DELAY": 0.17381532393712662,
+      "n": 68964
+    },
+    {
+      "dep_hour": 9,
+      "CARRIER_DELAY": 0.36377532767424464,
+      "WEATHER_DELAY": 0.03784109018766058,
+      "NAS_DELAY": 0.3324064136338505,
+      "SECURITY_DELAY": 0.0017562689042833447,
+      "LATE_AIRCRAFT_DELAY": 0.264220899599961,
+      "n": 61494
+    },
+    {
+      "dep_hour": 10,
+      "CARRIER_DELAY": 0.3256404307297567,
+      "WEATHER_DELAY": 0.0367949120388694,
+      "NAS_DELAY": 0.2957377407159722,
+      "SECURITY_DELAY": 0.001596811835514733,
+      "LATE_AIRCRAFT_DELAY": 0.340230104679887,
+      "n": 73271
+    },
+    {
+      "dep_hour": 11,
+      "CARRIER_DELAY": 0.30424638918619895,
+      "WEATHER_DELAY": 0.03241013553329405,
+      "NAS_DELAY": 0.28964679566582086,
+      "SECURITY_DELAY": 0.0020323981095089773,
+      "LATE_AIRCRAFT_DELAY": 0.3716642815051772,
+      "n": 83153
+    },
+    {
+      "dep_hour": 12,
+      "CARRIER_DELAY": 0.2821962381637932,
+      "WEATHER_DELAY": 0.0419607430036167,
+      "NAS_DELAY": 0.2802766951086766,
+      "SECURITY_DELAY": 0.0017790886852300525,
+      "LATE_AIRCRAFT_DELAY": 0.39378723503868346,
+      "n": 85437
+    },
+    {
+      "dep_hour": 13,
+      "CARRIER_DELAY": 0.27359132491602495,
+      "WEATHER_DELAY": 0.038191106742847265,
+      "NAS_DELAY": 0.27899165109572616,
+      "SECURITY_DELAY": 0.0019873200341300615,
+      "LATE_AIRCRAFT_DELAY": 0.40723859721127154,
+      "n": 92587
+    },
+    {
+      "dep_hour": 14,
+      "CARRIER_DELAY": 0.2678028476684346,
+      "WEATHER_DELAY": 0.045411160419967136,
+      "NAS_DELAY": 0.2821297489840298,
+      "SECURITY_DELAY": 0.0016039044742046898,
+      "LATE_AIRCRAFT_DELAY": 0.40305233845336375,
+      "n": 101627
+    },
+    {
+      "dep_hour": 15,
+      "CARRIER_DELAY": 0.25600043888924445,
+      "WEATHER_DELAY": 0.04464783709894209,
+      "NAS_DELAY": 0.2858357639873088,
+      "SECURITY_DELAY": 0.001590973511205391,
+      "LATE_AIRCRAFT_DELAY": 0.4119249865132993,
+      "n": 109367
+    },
+    {
+      "dep_hour": 16,
+      "CARRIER_DELAY": 0.24139057757293825,
+      "WEATHER_DELAY": 0.046836977738032796,
+      "NAS_DELAY": 0.28990429675744,
+      "SECURITY_DELAY": 0.0015821560315399366,
+      "LATE_AIRCRAFT_DELAY": 0.420285991900049,
+      "n": 116297
+    },
+    {
+      "dep_hour": 17,
+      "CARRIER_DELAY": 0.23787442782805768,
+      "WEATHER_DELAY": 0.044536223888830904,
+      "NAS_DELAY": 0.27961502333417826,
+      "SECURITY_DELAY": 0.0017221070837495714,
+      "LATE_AIRCRAFT_DELAY": 0.4362522178651836,
+      "n": 134138
+    },
+    {
+      "dep_hour": 18,
+      "CARRIER_DELAY": 0.23384615384615384,
+      "WEATHER_DELAY": 0.04087579926370859,
+      "NAS_DELAY": 0.2510443712458826,
+      "SECURITY_DELAY": 0.0017283472195310987,
+      "LATE_AIRCRAFT_DELAY": 0.47250532842472387,
+      "n": 129025
+    },
+    {
+      "dep_hour": 19,
+      "CARRIER_DELAY": 0.23750351373249334,
+      "WEATHER_DELAY": 0.037212494005985745,
+      "NAS_DELAY": 0.21478413281082065,
+      "SECURITY_DELAY": 0.001678323990938704,
+      "LATE_AIRCRAFT_DELAY": 0.5088215354597616,
+      "n": 120954
+    },
+    {
+      "dep_hour": 20,
+      "CARRIER_DELAY": 0.2721899042972415,
+      "WEATHER_DELAY": 0.03415274910865078,
+      "NAS_DELAY": 0.184326848898063,
+      "SECURITY_DELAY": 0.0015429202894018056,
+      "LATE_AIRCRAFT_DELAY": 0.5077875774066429,
+      "n": 95922
+    },
+    {
+      "dep_hour": 21,
+      "CARRIER_DELAY": 0.3039479248474597,
+      "WEATHER_DELAY": 0.03596024889748082,
+      "NAS_DELAY": 0.1616927445176101,
+      "SECURITY_DELAY": 0.001706639279888842,
+      "LATE_AIRCRAFT_DELAY": 0.49669244245756056,
+      "n": 66212
+    },
+    {
+      "dep_hour": 22,
+      "CARRIER_DELAY": 0.35024165602772206,
+      "WEATHER_DELAY": 0.03741108881998906,
+      "NAS_DELAY": 0.1393397774940726,
+      "SECURITY_DELAY": 0.0015274484771110705,
+      "LATE_AIRCRAFT_DELAY": 0.4714800291811052,
+      "n": 43864
+    },
+    {
+      "dep_hour": 23,
+      "CARRIER_DELAY": 0.3668725027243008,
+      "WEATHER_DELAY": 0.021703596077006903,
+      "NAS_DELAY": 0.17299309843806757,
+      "SECURITY_DELAY": 0.002179440610243371,
+      "LATE_AIRCRAFT_DELAY": 0.4362513621503814,
+      "n": 11012
+    }
+  ]
+}

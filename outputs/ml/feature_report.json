@@ -1,0 +1,223 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 7001619,
+    "generated_at": "2026-10-14T18:09:23+00:00",
+    "producer": "features.py"
+  },
+  "split": {
+    "train_months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "test_months": [
+      10,
+      11,
+      12
+    ],
+    "train_rows": 5150694,
+    "test_rows": 1728790
+  },
+  "scheduled_flights": 7001619,
+  "operated_with_arrival": 6879484,
+  "removed_cancelled_diverted_or_no_arrival": 122135,
+  "regression": {
+    "label": "ARR_DELAY (minutes)",
+    "train_label_winsorised_to": [
+      -50.0,
+      660.0
+    ],
+    "train_rows": 5150694,
+    "test_rows": 1728790
+  },
+  "cause": {
+    "label": "DOMINANT_CAUSE = argmax of the five cause columns",
+    "cause_status_train": {
+      "not_delayed": 4005590,
+      "ok": 1137711,
+      "tie": 7392,
+      "zero_causes": 1
+    },
+    "cause_status_test": {
+      "not_delayed": 1339256,
+      "ok": 386770,
+      "tie": 2751,
+      "zero_causes": 13
+    },
+    "class_distribution_train": {
+      "CARRIER_DELAY": 337588,
+      "LATE_AIRCRAFT_DELAY": 436360,
+      "NAS_DELAY": 310453,
+      "SECURITY_DELAY": 2056,
+      "WEATHER_DELAY": 51254
+    },
+    "class_distribution_test": {
+      "CARRIER_DELAY": 113735,
+      "LATE_AIRCRAFT_DELAY": 152943,
+      "NAS_DELAY": 108085,
+      "SECURITY_DELAY": 738,
+      "WEATHER_DELAY": 11269
+    }
+  },
+  "imputed_with_train_median": {
+    "MONTH": {
+      "train_nulls": 0,
+      "median": 5.0
+    },
+    "DAY_OF_WEEK": {
+      "train_nulls": 0,
+      "median": 4.0
+    },
+    "DEP_HOUR": {
+      "train_nulls": 0,
+      "median": 13.0
+    },
+    "ARR_HOUR": {
+      "train_nulls": 0,
+      "median": 15.0
+    },
+    "DISTANCE": {
+      "train_nulls": 0,
+      "median": 694.0
+    },
+    "ORIGIN_HOUR_DEPARTURES": {
+      "train_nulls": 0,
+      "median": 19.0
+    },
+    "DEP_DELAY": {
+      "train_nulls": 0,
+      "median": -2.0
+    },
+    "TAXI_OUT": {
+      "train_nulls": 0,
+      "median": 16.0
+    }
+  },
+  "smoothing_m": 50,
+  "feature_sets": {
+    "regression_pre": {
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_ROUTE_MEAN_DELAY",
+        "HIST_CARRIER_MEAN_DELAY",
+        "HIST_ORIGIN_MEAN_DELAY",
+        "HIST_DEST_MEAN_DELAY",
+        "HIST_ORIGIN_HOUR_MEAN_DELAY",
+        "HIST_ROUTE_LATE_RATE",
+        "HIST_CARRIER_LATE_RATE"
+      ]
+    },
+    "regression_atdep": {
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_ROUTE_MEAN_DELAY",
+        "HIST_CARRIER_MEAN_DELAY",
+        "HIST_ORIGIN_MEAN_DELAY",
+        "HIST_DEST_MEAN_DELAY",
+        "HIST_ORIGIN_HOUR_MEAN_DELAY",
+        "HIST_ROUTE_LATE_RATE",
+        "HIST_CARRIER_LATE_RATE",
+        "DEP_DELAY",
+        "TAXI_OUT"
+      ]
+    },
+    "cause_pre": {
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_CARRIER_SHARE_CARRIER",
+        "HIST_CARRIER_SHARE_WEATHER",
+        "HIST_CARRIER_SHARE_NAS",
+        "HIST_CARRIER_SHARE_SECURITY",
+        "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+        "HIST_ORIGIN_SHARE_CARRIER",
+        "HIST_ORIGIN_SHARE_WEATHER",
+        "HIST_ORIGIN_SHARE_NAS",
+        "HIST_ORIGIN_SHARE_SECURITY",
+        "HIST_ORIGIN_SHARE_LATE_AIRCRAFT",
+        "HIST_ROUTE_SHARE_CARRIER",
+        "HIST_ROUTE_SHARE_WEATHER",
+        "HIST_ROUTE_SHARE_NAS",
+        "HIST_ROUTE_SHARE_SECURITY",
+        "HIST_ROUTE_SHARE_LATE_AIRCRAFT"
+      ]
+    },
+    "cause_atdep": {
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_CARRIER_SHARE_CARRIER",
+        "HIST_CARRIER_SHARE_WEATHER",
+        "HIST_CARRIER_SHARE_NAS",
+        "HIST_CARRIER_SHARE_SECURITY",
+        "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+        "HIST_ORIGIN_SHARE_CARRIER",
+        "HIST_ORIGIN_SHARE_WEATHER",
+        "HIST_ORIGIN_SHARE_NAS",
+        "HIST_ORIGIN_SHARE_SECURITY",
+        "HIST_ORIGIN_SHARE_LATE_AIRCRAFT",
+        "HIST_ROUTE_SHARE_CARRIER",
+        "HIST_ROUTE_SHARE_WEATHER",
+        "HIST_ROUTE_SHARE_NAS",
+        "HIST_ROUTE_SHARE_SECURITY",
+        "HIST_ROUTE_SHARE_LATE_AIRCRAFT",
+        "DEP_DELAY",
+        "TAXI_OUT"
+      ]
+    }
+  }
+}

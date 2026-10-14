@@ -1,0 +1,27 @@
+# Large artefacts are regenerated locally by running the pipeline.
+data/raw/*
+data/processed/*
+data/features/*
+!data/*/.gitkeep
+data/samples/synthetic_smoke.csv
+
+models/*
+!models/.gitkeep
+
+outputs/spark-events/*
+!outputs/*/.gitkeep
+
+# Build output
+scala/target/
+scala/project/target/
+scala/project/project/
+.bsp/
+.metals/
+.bloop/
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.idea/
+.vscode/

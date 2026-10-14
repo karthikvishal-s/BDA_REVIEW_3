@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 1728790,
+    "generated_at": "2026-10-14T18:30:15+00:00",
+    "producer": "evaluate.py"
+  },
+  "model": "regression_atdep_rf",
+  "top": [
+    {
+      "feature": "DEP_DELAY",
+      "importance": 0.9276090765301722
+    },
+    {
+      "feature": "TAXI_OUT",
+      "importance": 0.03274200172483751
+    },
+    {
+      "feature": "ORIGIN",
+      "importance": 0.00982977120236523
+    },
+    {
+      "feature": "HIST_ORIGIN_HOUR_MEAN_DELAY",
+      "importance": 0.00824363079201431
+    },
+    {
+      "feature": "DEST",
+      "importance": 0.007097432493668389
+    },
+    {
+      "feature": "DEP_HOUR",
+      "importance": 0.003805094423327688
+    },
+    {
+      "feature": "OP_UNIQUE_CARRIER",
+      "importance": 0.002255193557575411
+    },
+    {
+      "feature": "HIST_ROUTE_MEAN_DELAY",
+      "importance": 0.0018730605719836728
+    },
+    {
+      "feature": "MONTH",
+      "importance": 0.0017898833565648433
+    },
+    {
+      "feature": "ARR_HOUR",
+      "importance": 0.0014350369207014805
+    },
+    {
+      "feature": "DEP_TIME_CATEGORY",
+      "importance": 0.0010991168727357743
+    },
+    {
+      "feature": "HIST_ROUTE_LATE_RATE",
+      "importance": 0.0005943439171430475
+    },
+    {
+      "feature": "HIST_CARRIER_MEAN_DELAY",
+      "importance": 0.00033781348705062006
+    },
+    {
+      "feature": "DISTANCE",
+      "importance": 0.00029284514232557875
+    },
+    {
+      "feature": "HIST_CARRIER_LATE_RATE",
+      "importance": 0.0002671773226336537
+    },
+    {
+      "feature": "ORIGIN_HOUR_DEPARTURES",
+      "importance": 0.00024409294283530468
+    },
+    {
+      "feature": "HIST_DEST_MEAN_DELAY",
+      "importance": 0.0001613397529328263
+    },
+    {
+      "feature": "HIST_ORIGIN_MEAN_DELAY",
+      "importance": 0.00016028657143746735
+    },
+    {
+      "feature": "DAY_OF_WEEK",
+      "importance": 0.00010119210875173772
+    },
+    {
+      "feature": "DISTANCE_CATEGORY",
+      "importance": 6.161030894334869e-05
+    }
+  ]
+}

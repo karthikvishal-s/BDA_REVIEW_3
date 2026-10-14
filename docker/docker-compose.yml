@@ -1,0 +1,45 @@
+name: review3-flight-spark
+
+services:
+  spark:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: review3-flight-spark:3.5.3
+    working_dir: /work
+    volumes:
+      - ..:/work
+      - sbt-cache:/root/.cache
+      - sbt-home:/root/.sbt
+      - ivy-home:/root/.ivy2
+    ports:
+      - "4040:4040"   # Spark UI of the running application
+    environment:
+      INPUT: ${INPUT:-sample}
+      HOLD: ${HOLD:-0}
+    stdin_open: true
+    tty: true
+
+  history:
+    image: review3-flight-spark:3.5.3
+    working_dir: /work
+    volumes:
+      - ..:/work
+    ports:
+      - "18080:18080"
+    command: >
+      spark-class org.apache.spark.deploy.history.HistoryServer
+
+  api:
+    image: review3-flight-spark:3.5.3
+    working_dir: /work
+    volumes:
+      - ..:/work
+    ports:
+      - "8000:8000"
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000
+
+volumes:
+  sbt-cache:
+  sbt-home:
+  ivy-home:

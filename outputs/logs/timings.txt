@@ -1,0 +1,16 @@
+mode=full input=/work/data/raw/flight_data_cleaned_1year.csv rows=6,879,485 application=local-1792002664734
+RDD: operated (textFile -> parse -> filter -> filter), action: count()
+
+run 1  uncached               :    7.781 s   recomputes the full lineage from the CSV
+run 2  uncached               :    7.141 s   recomputes again (OS page cache may now hold the file)
+       operated.persist(MEMORY_ONLY)
+run 3  cached, first action   :   19.996 s   computes AND stores the partitions
+run 4  cached, served         :    5.169 s   reads partitions from executor memory
+
+partitions cached: 93%   memory used: 2814.3 MB   storage level: Memory Deserialized 1x Replicated
+speed-up run 2 -> run 4: 1.4x
+
+These are the timings actually observed on this run. Run 2 can already be faster than run 1
+because the operating system caches the CSV file after the first read; that removes disk time
+but not CSV parsing, which is what persist() removes. If fewer than 100% of partitions were
+cached, executor memory was insufficient and the uncached partitions were recomputed.

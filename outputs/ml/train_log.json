@@ -1,0 +1,376 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 5150694,
+    "generated_at": "2026-10-14T18:19:58+00:00",
+    "producer": "train.py"
+  },
+  "mode": "full",
+  "models": {
+    "regression_pre_lr": {
+      "task": "regression",
+      "feature_set": "pre",
+      "algorithm": "LinearRegression",
+      "train_rows_available": 5150694,
+      "train_fraction": 1.0,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_ROUTE_MEAN_DELAY",
+        "HIST_CARRIER_MEAN_DELAY",
+        "HIST_ORIGIN_MEAN_DELAY",
+        "HIST_DEST_MEAN_DELAY",
+        "HIST_ORIGIN_HOUR_MEAN_DELAY",
+        "HIST_ROUTE_LATE_RATE",
+        "HIST_CARRIER_LATE_RATE"
+      ],
+      "max_bins": 351,
+      "params": {},
+      "fit_seconds": 13.4
+    },
+    "regression_pre_rf": {
+      "task": "regression",
+      "feature_set": "pre",
+      "algorithm": "RandomForestRegressor",
+      "train_rows_available": 5150694,
+      "train_fraction": 0.3,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_ROUTE_MEAN_DELAY",
+        "HIST_CARRIER_MEAN_DELAY",
+        "HIST_ORIGIN_MEAN_DELAY",
+        "HIST_DEST_MEAN_DELAY",
+        "HIST_ORIGIN_HOUR_MEAN_DELAY",
+        "HIST_ROUTE_LATE_RATE",
+        "HIST_CARRIER_LATE_RATE"
+      ],
+      "max_bins": 351,
+      "params": {
+        "numTrees": 40,
+        "maxDepth": 10
+      },
+      "fit_seconds": 128.2
+    },
+    "regression_atdep_lr": {
+      "task": "regression",
+      "feature_set": "atdep",
+      "algorithm": "LinearRegression",
+      "train_rows_available": 5150694,
+      "train_fraction": 1.0,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_ROUTE_MEAN_DELAY",
+        "HIST_CARRIER_MEAN_DELAY",
+        "HIST_ORIGIN_MEAN_DELAY",
+        "HIST_DEST_MEAN_DELAY",
+        "HIST_ORIGIN_HOUR_MEAN_DELAY",
+        "HIST_ROUTE_LATE_RATE",
+        "HIST_CARRIER_LATE_RATE",
+        "DEP_DELAY",
+        "TAXI_OUT"
+      ],
+      "max_bins": 351,
+      "params": {},
+      "fit_seconds": 26.0
+    },
+    "regression_atdep_rf": {
+      "task": "regression",
+      "feature_set": "atdep",
+      "algorithm": "RandomForestRegressor",
+      "train_rows_available": 5150694,
+      "train_fraction": 0.3,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_ROUTE_MEAN_DELAY",
+        "HIST_CARRIER_MEAN_DELAY",
+        "HIST_ORIGIN_MEAN_DELAY",
+        "HIST_DEST_MEAN_DELAY",
+        "HIST_ORIGIN_HOUR_MEAN_DELAY",
+        "HIST_ROUTE_LATE_RATE",
+        "HIST_CARRIER_LATE_RATE",
+        "DEP_DELAY",
+        "TAXI_OUT"
+      ],
+      "max_bins": 351,
+      "params": {
+        "numTrees": 40,
+        "maxDepth": 10
+      },
+      "fit_seconds": 117.3
+    },
+    "cause_pre_lr": {
+      "task": "cause",
+      "feature_set": "pre",
+      "algorithm": "LogisticRegression",
+      "train_rows_available": 1137711,
+      "train_fraction": 1.0,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_CARRIER_SHARE_CARRIER",
+        "HIST_CARRIER_SHARE_WEATHER",
+        "HIST_CARRIER_SHARE_NAS",
+        "HIST_CARRIER_SHARE_SECURITY",
+        "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+        "HIST_ORIGIN_SHARE_CARRIER",
+        "HIST_ORIGIN_SHARE_WEATHER",
+        "HIST_ORIGIN_SHARE_NAS",
+        "HIST_ORIGIN_SHARE_SECURITY",
+        "HIST_ORIGIN_SHARE_LATE_AIRCRAFT",
+        "HIST_ROUTE_SHARE_CARRIER",
+        "HIST_ROUTE_SHARE_WEATHER",
+        "HIST_ROUTE_SHARE_NAS",
+        "HIST_ROUTE_SHARE_SECURITY",
+        "HIST_ROUTE_SHARE_LATE_AIRCRAFT"
+      ],
+      "max_bins": 350,
+      "params": {},
+      "fit_seconds": 22.5,
+      "class_counts": {
+        "LATE_AIRCRAFT_DELAY": 436360,
+        "WEATHER_DELAY": 51254,
+        "SECURITY_DELAY": 2056,
+        "NAS_DELAY": 310453,
+        "CARRIER_DELAY": 337588
+      },
+      "class_weights": {
+        "LATE_AIRCRAFT_DELAY": 0.5214552204601705,
+        "WEATHER_DELAY": 4.439501307215046,
+        "SECURITY_DELAY": 50.0,
+        "NAS_DELAY": 0.732936064396221,
+        "CARRIER_DELAY": 0.6740233657594464
+      }
+    },
+    "cause_pre_rf": {
+      "task": "cause",
+      "feature_set": "pre",
+      "algorithm": "RandomForestClassifier",
+      "train_rows_available": 1137711,
+      "train_fraction": 1.0,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_CARRIER_SHARE_CARRIER",
+        "HIST_CARRIER_SHARE_WEATHER",
+        "HIST_CARRIER_SHARE_NAS",
+        "HIST_CARRIER_SHARE_SECURITY",
+        "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+        "HIST_ORIGIN_SHARE_CARRIER",
+        "HIST_ORIGIN_SHARE_WEATHER",
+        "HIST_ORIGIN_SHARE_NAS",
+        "HIST_ORIGIN_SHARE_SECURITY",
+        "HIST_ORIGIN_SHARE_LATE_AIRCRAFT",
+        "HIST_ROUTE_SHARE_CARRIER",
+        "HIST_ROUTE_SHARE_WEATHER",
+        "HIST_ROUTE_SHARE_NAS",
+        "HIST_ROUTE_SHARE_SECURITY",
+        "HIST_ROUTE_SHARE_LATE_AIRCRAFT"
+      ],
+      "max_bins": 350,
+      "params": {
+        "numTrees": 40,
+        "maxDepth": 10
+      },
+      "fit_seconds": 160.1,
+      "class_counts": {
+        "LATE_AIRCRAFT_DELAY": 436360,
+        "WEATHER_DELAY": 51254,
+        "SECURITY_DELAY": 2056,
+        "NAS_DELAY": 310453,
+        "CARRIER_DELAY": 337588
+      },
+      "class_weights": {
+        "LATE_AIRCRAFT_DELAY": 0.5214552204601705,
+        "WEATHER_DELAY": 4.439501307215046,
+        "SECURITY_DELAY": 50.0,
+        "NAS_DELAY": 0.732936064396221,
+        "CARRIER_DELAY": 0.6740233657594464
+      }
+    },
+    "cause_atdep_lr": {
+      "task": "cause",
+      "feature_set": "atdep",
+      "algorithm": "LogisticRegression",
+      "train_rows_available": 1137711,
+      "train_fraction": 1.0,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_CARRIER_SHARE_CARRIER",
+        "HIST_CARRIER_SHARE_WEATHER",
+        "HIST_CARRIER_SHARE_NAS",
+        "HIST_CARRIER_SHARE_SECURITY",
+        "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+        "HIST_ORIGIN_SHARE_CARRIER",
+        "HIST_ORIGIN_SHARE_WEATHER",
+        "HIST_ORIGIN_SHARE_NAS",
+        "HIST_ORIGIN_SHARE_SECURITY",
+        "HIST_ORIGIN_SHARE_LATE_AIRCRAFT",
+        "HIST_ROUTE_SHARE_CARRIER",
+        "HIST_ROUTE_SHARE_WEATHER",
+        "HIST_ROUTE_SHARE_NAS",
+        "HIST_ROUTE_SHARE_SECURITY",
+        "HIST_ROUTE_SHARE_LATE_AIRCRAFT",
+        "DEP_DELAY",
+        "TAXI_OUT"
+      ],
+      "max_bins": 350,
+      "params": {},
+      "fit_seconds": 21.5,
+      "class_counts": {
+        "LATE_AIRCRAFT_DELAY": 436360,
+        "WEATHER_DELAY": 51254,
+        "SECURITY_DELAY": 2056,
+        "NAS_DELAY": 310453,
+        "CARRIER_DELAY": 337588
+      },
+      "class_weights": {
+        "LATE_AIRCRAFT_DELAY": 0.5214552204601705,
+        "WEATHER_DELAY": 4.439501307215046,
+        "SECURITY_DELAY": 50.0,
+        "NAS_DELAY": 0.732936064396221,
+        "CARRIER_DELAY": 0.6740233657594464
+      }
+    },
+    "cause_atdep_rf": {
+      "task": "cause",
+      "feature_set": "atdep",
+      "algorithm": "RandomForestClassifier",
+      "train_rows_available": 1137711,
+      "train_fraction": 1.0,
+      "categorical": [
+        "OP_UNIQUE_CARRIER",
+        "ORIGIN",
+        "DEST",
+        "DEP_TIME_CATEGORY",
+        "DISTANCE_CATEGORY"
+      ],
+      "numeric": [
+        "MONTH",
+        "DAY_OF_WEEK",
+        "DEP_HOUR",
+        "ARR_HOUR",
+        "DISTANCE",
+        "ORIGIN_HOUR_DEPARTURES",
+        "HIST_CARRIER_SHARE_CARRIER",
+        "HIST_CARRIER_SHARE_WEATHER",
+        "HIST_CARRIER_SHARE_NAS",
+        "HIST_CARRIER_SHARE_SECURITY",
+        "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+        "HIST_ORIGIN_SHARE_CARRIER",
+        "HIST_ORIGIN_SHARE_WEATHER",
+        "HIST_ORIGIN_SHARE_NAS",
+        "HIST_ORIGIN_SHARE_SECURITY",
+        "HIST_ORIGIN_SHARE_LATE_AIRCRAFT",
+        "HIST_ROUTE_SHARE_CARRIER",
+        "HIST_ROUTE_SHARE_WEATHER",
+        "HIST_ROUTE_SHARE_NAS",
+        "HIST_ROUTE_SHARE_SECURITY",
+        "HIST_ROUTE_SHARE_LATE_AIRCRAFT",
+        "DEP_DELAY",
+        "TAXI_OUT"
+      ],
+      "max_bins": 350,
+      "params": {
+        "numTrees": 40,
+        "maxDepth": 10
+      },
+      "fit_seconds": 106.8,
+      "class_counts": {
+        "LATE_AIRCRAFT_DELAY": 436360,
+        "WEATHER_DELAY": 51254,
+        "SECURITY_DELAY": 2056,
+        "NAS_DELAY": 310453,
+        "CARRIER_DELAY": 337588
+      },
+      "class_weights": {
+        "LATE_AIRCRAFT_DELAY": 0.5214552204601705,
+        "WEATHER_DELAY": 4.439501307215046,
+        "SECURITY_DELAY": 50.0,
+        "NAS_DELAY": 0.732936064396221,
+        "CARRIER_DELAY": 0.6740233657594464
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 1728790,
+    "generated_at": "2026-10-14T18:29:48+00:00",
+    "producer": "evaluate.py"
+  },
+  "model": "regression_pre_rf",
+  "top": [
+    {
+      "feature": "HIST_ORIGIN_HOUR_MEAN_DELAY",
+      "importance": 0.18157057148619724
+    },
+    {
+      "feature": "ORIGIN",
+      "importance": 0.14362965363326632
+    },
+    {
+      "feature": "MONTH",
+      "importance": 0.14099876369189046
+    },
+    {
+      "feature": "DEST",
+      "importance": 0.12873526432924265
+    },
+    {
+      "feature": "DEP_HOUR",
+      "importance": 0.09091448560226416
+    },
+    {
+      "feature": "HIST_ROUTE_MEAN_DELAY",
+      "importance": 0.07472345782998448
+    },
+    {
+      "feature": "ARR_HOUR",
+      "importance": 0.05110219515172816
+    },
+    {
+      "feature": "HIST_ROUTE_LATE_RATE",
+      "importance": 0.04400756773222643
+    },
+    {
+      "feature": "OP_UNIQUE_CARRIER",
+      "importance": 0.03125233799249642
+    },
+    {
+      "feature": "DEP_TIME_CATEGORY",
+      "importance": 0.02822145376456091
+    },
+    {
+      "feature": "DAY_OF_WEEK",
+      "importance": 0.02643710033189097
+    },
+    {
+      "feature": "ORIGIN_HOUR_DEPARTURES",
+      "importance": 0.018821567073302337
+    },
+    {
+      "feature": "HIST_ORIGIN_MEAN_DELAY",
+      "importance": 0.011278199184262884
+    },
+    {
+      "feature": "DISTANCE",
+      "importance": 0.00733516769201399
+    },
+    {
+      "feature": "HIST_DEST_MEAN_DELAY",
+      "importance": 0.006891132482103593
+    },
+    {
+      "feature": "HIST_CARRIER_MEAN_DELAY",
+      "importance": 0.006791578518787264
+    },
+    {
+      "feature": "HIST_CARRIER_LATE_RATE",
+      "importance": 0.006344817206881776
+    },
+    {
+      "feature": "DISTANCE_CATEGORY",
+      "importance": 0.0009446862968999759
+    }
+  ]
+}

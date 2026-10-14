@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "input_path": "data/raw/flight_data_cleaned_1year.csv",
+    "mode": "full",
+    "row_count": 386770,
+    "generated_at": "2026-10-14T18:30:39+00:00",
+    "producer": "evaluate.py"
+  },
+  "model": "cause_atdep_rf",
+  "top": [
+    {
+      "feature": "DEP_DELAY",
+      "importance": 0.45741946941192924
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_SECURITY",
+      "importance": 0.10520678933553103
+    },
+    {
+      "feature": "TAXI_OUT",
+      "importance": 0.07986625399738403
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_WEATHER",
+      "importance": 0.058542203614157684
+    },
+    {
+      "feature": "OP_UNIQUE_CARRIER",
+      "importance": 0.026948399116988216
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_CARRIER",
+      "importance": 0.02488394325146055
+    },
+    {
+      "feature": "ORIGIN",
+      "importance": 0.023255724602515668
+    },
+    {
+      "feature": "DEST",
+      "importance": 0.021958932913702493
+    },
+    {
+      "feature": "DEP_HOUR",
+      "importance": 0.021329189250343404
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_NAS",
+      "importance": 0.0207211000411827
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_NAS",
+      "importance": 0.01740420974745067
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_WEATHER",
+      "importance": 0.017232755663286737
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_LATE_AIRCRAFT",
+      "importance": 0.016029293193539896
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_LATE_AIRCRAFT",
+      "importance": 0.014666109214729753
+    },
+    {
+      "feature": "HIST_CARRIER_SHARE_SECURITY",
+      "importance": 0.014070438298322737
+    },
+    {
+      "feature": "ARR_HOUR",
+      "importance": 0.011875309939914253
+    },
+    {
+      "feature": "DEP_TIME_CATEGORY",
+      "importance": 0.01175390759757352
+    },
+    {
+      "feature": "HIST_ROUTE_SHARE_CARRIER",
+      "importance": 0.011133105963127879
+    },
+    {
+      "feature": "HIST_ORIGIN_SHARE_SECURITY",
+      "importance": 0.008521297663541032
+    },
+    {
+      "feature": "HIST_ORIGIN_SHARE_WEATHER",
+      "importance": 0.008178621430736048
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+=== Schema check: /work/data/raw/flight_data_cleaned_1year.csv
+Columns in file          : 38
+Required present         : 18/18
+Required MISSING         : none
+Optional missing (derived or skipped): ACTUAL_ELAPSED_TIME, CRS_ELAPSED_TIME
+Other columns (passed through as text): YEAR, OP_CARRIER_AIRLINE_ID, ORIGIN_CITY_NAME, ORIGIN_STATE_ABR, DEST_CITY_NAME, DEST_STATE_ABR, DEP_DELAY_NEW
+Header: YEAR, FL_DATE, OP_UNIQUE_CARRIER, OP_CARRIER_AIRLINE_ID, OP_CARRIER_FL_NUM, ORIGIN, ORIGIN_CITY_NAME, ORIGIN_STATE_ABR, DEST, DEST_CITY_NAME, DEST_STATE_ABR, CRS_DEP_TIME, DEP_TIME, DEP_DELAY, DEP_DELAY_NEW, DEP_DEL15, TAXI_OUT, TAXI_IN, CRS_ARR_TIME, ARR_TIME, ARR_DELAY, ARR_DELAY_NEW, ARR_DEL15, CANCELLED, DIVERTED, AIR_TIME, DISTANCE, CARRIER_DELAY, WEATHER_DELAY, NAS_DELAY, SECURITY_DELAY, LATE_AIRCRAFT_DELAY, ROUTE, MONTH, DAY_OF_WEEK, DEP_TIME_CATEGORY, DELAY_CATEGORY, DISTANCE_CATEGORY
+
+=== Ingest [full]
+Rows read from CSV       : 7,001,619   (read + cache 30.0 s)
+Malformed rows dropped   : 0   (unparseable FL_DATE, or empty carrier / origin / dest)
+Valid rows               : 7,001,619
+  cancelled              : 102,876
+  diverted               : 19,258
+  operated (neither)     : 6,879,485
+Numeric cast failures    : none
+Rows per month           : 1:539747  2:504884  3:600872  4:583950  5:605648  6:611575  7:631428  8:602378  9:562439  10:605844  11:570550  12:582304
+Parquet written          : /work/data/processed/full/flights.parquet  (22.6 s)
+Parquet row count        : 7,001,619  == valid rows (reconciled)
