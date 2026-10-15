@@ -40,6 +40,14 @@ make rdd INPUT=full HOLD=300     # rerun with the Spark UI held open on :4040 fo
 its input in `_meta`, and every chart from a non-full run carries a red banner. Only `full`
 outputs go in the report.
 
+**Trained models are in the repo** (`models/full/`, the 8 pipelines from the full-data run). To
+evaluate or demo them without the ~10 min retrain:
+```bash
+make ingest features evaluate predict INPUT=full   # rebuilds the test features, reuses the committed models
+```
+The test features must still be rebuilt locally, because `data/` is not in Git. They reproduce
+exactly: the split and the encodings are deterministic.
+
 | Target | Does |
 |---|---|
 | `make ingest / rdd / analytics` | Scala jobs (the JAR is rebuilt automatically when sources change) |

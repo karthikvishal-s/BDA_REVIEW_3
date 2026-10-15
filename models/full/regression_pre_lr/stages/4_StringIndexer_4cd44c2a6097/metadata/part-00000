@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StringIndexerModel","timestamp":1792001400467,"sparkVersion":"3.5.3","uid":"StringIndexer_4cd44c2a6097","paramMap":{"inputCol":"DISTANCE_CATEGORY","outputCol":"DISTANCE_CATEGORY_IDX","handleInvalid":"keep"},"defaultParamMap":{"stringOrderType":"frequencyDesc","outputCol":"StringIndexer_4cd44c2a6097__output","handleInvalid":"error"}}

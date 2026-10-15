@@ -7,6 +7,8 @@ data/samples/synthetic_smoke.csv
 
 models/*
 !models/.gitkeep
+# The full-data models are committed (14 MB) so teammates can evaluate / predict without retraining.
+!models/full/
 
 outputs/spark-events/*
 !outputs/*/.gitkeep
